@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- 顶部导航 -->
+        <header class="header">
+            <div class="brand">
+                <span class="brand-name">Video Downloader</span>
+                <span class="brand-sub">多平台视频下载</span>
+            </div>
+            <nav class="nav">
+                <a href="/api/health" target="_blank" class="nav-link">状态</a>
+            </nav>
+        </header>
+
+        <!-- 主内容 -->
+        <main class="main">
+            <!-- 输入区 -->
+            <section class="panel" id="inputPanel">
+                <div class="field">
+                    <label class="field-label" for="url">视频链接</label>
+                    <input
+                        type="text"
+                        id="url"
+                        class="field-input"
+                        placeholder="粘贴链接或分享文案"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <p class="field-hint">支持哔哩哔哩、抖音、快手、小红书、Likee、Instagram、YouTube</p>
+                </div>
+
+                <button id="startBtn" class="btn-primary">
+                    <span class="btn-text">开始下载</span>
+                </button>
+
+                <!-- Cookie 管理区（位于下载按钮下方） -->
+                <div class="cookie-section">
+                    <div class="field cookie-field">
+                        <div class="field-header">
+                            <label class="field-label" for="cookie">Cookie（可选，高清视频需要）</label>
+                            <span id="cookieStatus" class="cookie-status"></span>
+                        </div>
+                        <textarea
+                            id="cookie"
+                            class="field-input field-textarea"
+                            placeholder="粘贴 Cookie，将自动识别所属平台并永久保存"
+                            spellcheck="false"
+                        ></textarea>
+                        <p class="field-hint">输入后自动识别平台并保存；识别失败时可手动选择平台保存</p>
+                        <!-- 手动选择平台（识别失败时显示） -->
+                        <div class="cookie-manual" id="cookieManual" style="display:none;">
+                            <select id="cookiePlatformSelect" class="cookie-select"></select>
+                            <button type="button" id="cookieSaveBtn" class="btn-secondary btn-small">保存</button>
+                        </div>
+                    </div>
+
+                    <!-- 已保存的平台 Cookie 列表 -->
+                    <div class="cookie-saved" id="cookieSaved" style="display:none;">
+                        <div class="cookie-saved-header">
+                            <span class="cookie-saved-title">已保存的平台 Cookie</span>
+                            <div class="cookie-batch">
+                                <label class="check-all">
+                                    <input type="checkbox" id="checkAll"> 全选
+                                </label>
+                                <button type="button" id="deleteSelectedBtn" class="text-btn text-btn-danger">删除选中</button>
+                            </div>
+                        </div>
+                        <div class="cookie-chips" id="cookieChips"></div>
+                        <p class="field-hint">点击平台名可查看 / 修改 Cookie，点击 ✕ 或勾选后删除</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 进度区 -->
+            <section class="panel panel-progress" id="progressPanel" hidden>
+                <div class="progress-header">
+                    <span class="progress-title">下载进度</span>
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+
+                <div class="progress-info">
+                    <div class="info-item">
+                        <span class="info-label">标题</span>
+                        <span class="info-value" id="title">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">平台</span>
+                        <span class="info-value" id="platform">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">视频流</span>
+                        <span class="info-value" id="videoFmt">—</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">音频流</span>
+                        <span class="info-value" id="audioFmt">—</span>
+                    </div>
+                    <div class="info-item info-item-full">
+                        <span class="info-label">状态</span>
+                        <span class="info-value" id="stage">—</span>
+                    </div>
+                </div>
+
+                <div class="message" id="statusMsg"></div>
+
+                <div class="actions-wrap">
+                    <!-- 下载完成后显示：保存到本地 -->
+                    <div class="actions" id="actionsArea" style="display:none;">
+                        <a id="downloadLink" class="btn-primary btn-download" href="#">
+                            保存到本地
+                        </a>
+                    </div>
+                    <!-- 常驻显示：下载过程中与下载完成后均可点击"新建任务" -->
+                    <div class="actions">
+                        <button id="resetBtn" class="btn-secondary">新建任务</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <span>Powered by Go · yt-dlp · ffmpeg</span>
+        </footer>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

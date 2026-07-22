@@ -1,0 +1,19 @@
+# docker-compose.yml（version 字段已废弃，新版 Compose 无需声明）
+services:
+  bili-downloader:
+    build: .
+    container_name: bili-downloader
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - ./downloads:/app/downloads
+      - ./cookies_store:/app/cookies_store
+      - ./certs:/app/certs
+    environment:
+      - TZ=Asia/Shanghai
+      - PORT=443
+      # 可选：访问域名，写入自签名证书 SANs
+      # - DOMAIN=your-domain.com
+      # 可选：置 1 退回纯 HTTP（Cloudflare Flexible SSL 或内网直连）
+      # - HTTP_ONLY=1

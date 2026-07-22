@@ -1,0 +1,29 @@
+# Go
+bili-downloader
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 测试
+*.test
+*.out
+
+# 运行时
+downloads/
+cookies_store/
+*.log
+*.pid
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go 工具
+vendor/

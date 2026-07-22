@@ -1,0 +1,9 @@
+bili-downloader
+downloads/
+cookies_store/
+*.log
+*.pid
+.git
+.gitignore
+*.test
+*.out
